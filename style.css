@@ -1,0 +1,150 @@
+:root {
+  --box-shadow: 0 0px 5px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  --space-md: 20px;
+  --color-warning: #e41212;
+  --color-success: #2ecc71;
+}
+
+*,
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 15px;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+li,
+ul {
+  list-style: none;
+}
+
+h1,
+h2,
+h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+h2 {
+  font-weight: 400;
+  font-size: 1.1rem;
+}
+h1 {
+  font-weight: 500;
+  font-size: 1.6rem;
+}
+h3 {
+  font-weight: 400;
+  font-size: 1.2rem;
+  border-bottom: 1px solid #bbb;
+  padding-bottom: 10px;
+  margin: calc(var(--space-md) * 2) 0 calc(var(--space-md) / 2);
+}
+h4 {
+  font-weight: 300;
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+
+.app__wrapper {
+  margin: 0 auto;
+  width: 360px;
+}
+
+.app__wrapper h1 {
+  margin: var(--space-md) 0;
+  text-align: center;
+}
+.balance__container {
+  margin: calc(var(--space-md) * 2) auto;
+}
+.balance__heading,
+.balance__details h3 {
+  text-transform: uppercase;
+}
+.balance__heading .banlance__result {
+  font-size: 2.2rem;
+}
+.balance__details {
+  display: flex;
+  margin: var(--space-md) 0;
+  padding: var(--space-md);
+  box-shadow: var(--box-shadow);
+}
+.balance__income,
+.balance__expense {
+  flex: 100%;
+  text-align: center;
+}
+.balance__details > div:first-of-type {
+  border-right: 1px solid #dedede;
+}
+
+.balance__total {
+  margin: calc(var(--space-md) / 2) 0;
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+}
+
+.balance__total--negative {
+  color: var(--color-warning);
+}
+.balance__total--positive {
+  color: var(--color-success);
+}
+
+.history__records p {
+  display: flex;
+  justify-content: space-between;
+  box-shadow: var(--box-shadow);
+  padding: 10px;
+  margin: 10px 0;
+}
+.history__records__income {
+  border-right: solid 4px var(--color-success);
+}
+
+.history__records__expense {
+  border-right: var(--color-warning);
+}
+.edit-form__field {
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+}
+.edit-form__field div {
+  margin: 10px 0;
+}
+.edit-form__field input {
+  padding: 10px;
+  border-radius: 2px;
+  border: 1px solid #dedede;
+}
+
+.edit-form__submit-button {
+  cursor: pointer;
+  background-color: #9c88ff;
+  box-shadow: var(--box-shadow);
+  color: #fff;
+  border: 0;
+  display: block;
+  font-size: 16px;
+  margin: 10px 0 30px;
+  padding: 10px;
+  width: 100%;
+}
+.money:before {
+  content: '$';
+}

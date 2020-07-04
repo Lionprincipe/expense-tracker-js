@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Expense Tracker</title>
+  </head>
+  <body>
+    <div class="app__wrapper">
+      <h1>Expense Tracker</h1>
+      <section class="balance__container">
+        <h2 class="balance__heading">
+          <div>Your Balance</div>
+          <div class="banlance__result">$12.00</div>
+        </h2>
+        <div class="balance__details">
+          <div class="balance__income">
+            <h4>Income</h4>
+            <div class="balance__total balance__total--positive">$12.00</div>
+          </div>
+          <div class="balance__expense">
+            <h4>Expense</h4>
+            <div class="balance__total balance__total--negative">$-12.00</div>
+          </div>
+        </div>
+      </section>
+      <secton class="history__container">
+        <h3>History</h3>
+        <ul>
+          <li class="history__records history__records__income">
+            <p>
+              <span>Biere</span>
+              <span class="history_records__balance">+12</span>
+            </p>
+          </li>
+        </ul>
+      </secton>
+      <section class="edit-form__container">
+        <h3>Add new transaction</h3>
+        <form>
+          <label class="edit-form__field">
+            <div>Text</div>
+            <input type="text" placeholder="Enter a this entry label..." />
+          </label>
+          <label class="edit-form__field">
+            <div>
+              Amount
+              <p>(negative - expense, positive - income)</p>
+            </div>
+            <input type="number" placeholder="Enter a number..." />
+          </label>
+          <button class="edit-form__submit-button">Add transaction</button>
+        </form>
+      </section>
+    </div>
+  </body>
+  <script src="script.js"></script>
+</html>
