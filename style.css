@@ -67,41 +67,41 @@ h4 {
   margin: var(--space-md) 0;
   text-align: center;
 }
-.balance__container {
+.summary__container {
   margin: calc(var(--space-md) * 2) auto;
 }
-.balance__heading,
-.balance__details h3 {
+.summary__heading,
+.summary__details h3 {
   text-transform: uppercase;
 }
-.balance__heading .banlance__result {
+.summary__heading .banlance__result {
   font-size: 2.2rem;
 }
-.balance__details {
+.summary__details {
   display: flex;
   margin: var(--space-md) 0;
   padding: var(--space-md);
   box-shadow: var(--box-shadow);
 }
-.balance__income,
-.balance__expense {
+.summary__income,
+.summary__expense {
   flex: 100%;
   text-align: center;
 }
-.balance__details > div:first-of-type {
+.summary__details > div:first-of-type {
   border-right: 1px solid #dedede;
 }
 
-.balance__total {
+.summary__total {
   margin: calc(var(--space-md) / 2) 0;
   font-size: 1.5rem;
   letter-spacing: 1px;
 }
 
-.balance__total--negative {
+.summary__total--negative {
   color: var(--color-warning);
 }
-.balance__total--positive {
+.summary__total--positive {
   color: var(--color-success);
 }
 
@@ -117,7 +117,7 @@ h4 {
 }
 
 .history__records__expense {
-  border-right: var(--color-warning);
+  border-right: solid 4px var(--color-warning);
 }
 .edit-form__field {
   margin: 10px 0;
@@ -147,4 +147,8 @@ h4 {
 }
 .money:before {
   content: '$';
+}
+
+.hidden {
+  display: none;
 }

@@ -9,35 +9,28 @@
   <body>
     <div class="app__wrapper">
       <h1>Expense Tracker</h1>
-      <section class="balance__container">
-        <h2 class="balance__heading">
-          <div>Your Balance</div>
+      <section class="summary__container" data-js="js-summary">
+        <!-- <h2 class="summary__heading">
+          <div>Your summary</div>
           <div class="banlance__result">$12.00</div>
-        </h2>
-        <div class="balance__details">
-          <div class="balance__income">
+        </h2> 
+        <div class="summary__details">
+          <div class="summary__income">
             <h4>Income</h4>
-            <div class="balance__total balance__total--positive">$12.00</div>
+            <div class="summary__total summary__total--positive">$12.00</div>
           </div>
-          <div class="balance__expense">
+          <div class="summary__expense">
             <h4>Expense</h4>
-            <div class="balance__total balance__total--negative">$-12.00</div>
+            <div class="summary__total summary__total--negative">$-12.00</div>
           </div>
-        </div>
+        </div>-->
       </section>
-      <secton class="history__container">
-        <h3>History</h3>
-        <ul>
-          <li class="history__records history__records__income">
-            <p>
-              <span>Biere</span>
-              <span class="history_records__balance">+12</span>
-            </p>
-          </li>
-        </ul>
+      <secton class="history__container" data-js="js-history js-toggle">
+        <h3 data-js="js-toggle-trigger">History</h3>
+        <ul></ul>
       </secton>
-      <section class="edit-form__container">
-        <h3>Add new transaction</h3>
+      <section class="edit-form__container" data-js="js-toggle">
+        <h3 data-js="js-toggle-trigger">Add new transaction</h3>
         <form>
           <label class="edit-form__field">
             <div>Text</div>
