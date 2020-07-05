@@ -9,41 +9,39 @@
   <body>
     <div class="app__wrapper">
       <h1>Expense Tracker</h1>
-      <section class="summary__container" data-js="js-summary">
-        <!-- <h2 class="summary__heading">
-          <div>Your summary</div>
-          <div class="banlance__result">$12.00</div>
-        </h2> 
-        <div class="summary__details">
-          <div class="summary__income">
-            <h4>Income</h4>
-            <div class="summary__total summary__total--positive">$12.00</div>
-          </div>
-          <div class="summary__expense">
-            <h4>Expense</h4>
-            <div class="summary__total summary__total--negative">$-12.00</div>
-          </div>
-        </div>-->
-      </section>
+      <section class="summary__container" data-js="js-summary"></section>
       <secton class="history__container" data-js="js-history js-toggle">
         <h3 data-js="js-toggle-trigger">History</h3>
         <ul></ul>
       </secton>
-      <section class="edit-form__container" data-js="js-toggle">
+      <section
+        class="edit-form__container"
+        data-js="js-toggle js-add-transaction"
+      >
         <h3 data-js="js-toggle-trigger">Add new transaction</h3>
         <form>
           <label class="edit-form__field">
             <div>Text</div>
-            <input type="text" placeholder="Enter a this entry label..." />
+            <input
+              type="text"
+              placeholder="Enter a this entry label..."
+              name="label"
+            />
           </label>
           <label class="edit-form__field">
             <div>
               Amount
               <p>(negative - expense, positive - income)</p>
             </div>
-            <input type="number" placeholder="Enter a number..." />
+            <input
+              type="number"
+              name="amount"
+              placeholder="Enter a number..."
+            />
           </label>
-          <button class="edit-form__submit-button">Add transaction</button>
+          <button type="submit" class="edit-form__submit-button">
+            Add transaction
+          </button>
         </form>
       </section>
     </div>

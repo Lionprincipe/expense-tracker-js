@@ -12,6 +12,10 @@
   padding: 0;
   box-sizing: border-box;
 }
+button {
+  background: none;
+  border: none;
+}
 
 html {
   font-size: 15px;
@@ -105,12 +109,31 @@ h4 {
   color: var(--color-success);
 }
 
-.history__records p {
+.history__records {
   display: flex;
+  position: relative;
   justify-content: space-between;
+  align-items: center;
   box-shadow: var(--box-shadow);
   padding: 10px;
   margin: 10px 0;
+}
+.history__records button {
+  position: absolute;
+  line-height: 24px;
+  width: 24px;
+  height: 24px;
+  top: calc(calc(100% - 24px) / 2);
+  left: -30px;
+  color: #fff;
+  background: var(--color-warning);
+  border-radius: 4px;
+}
+.history__records button::after {
+  content: 'x';
+  top: center;
+  left: center;
+  transform: translate(-50% -50%);
 }
 .history__records__income {
   border-right: solid 4px var(--color-success);
