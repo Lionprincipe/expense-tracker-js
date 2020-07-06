@@ -1,39 +1,43 @@
-let data = [
-  { label: 'salary', amount: 12000 },
-  { label: 'birthday', amount: 12000 },
-  { label: '', amount: 0 },
-  { label: 'biere', amount: -5000 },
-  { label: 'pizza', amount: -2000 },
-]
+let transactions = []
 
 const render = () => {
   renderTransactions('[data-js~=js-history] ul')
   renderSummary('[data-js~=js-summary]')
 }
+
 const init = () => {
+  addToggleLogicToSections()
+  addSubmitEventListenerToForm('[data-js~=js-add-transaction]')
   render()
-  addToggleLogicToSections('[data-js~=js-toggle-trigger]')
-  const formEl = getEl('[data-js~=js-add-transaction] form')
-  const submitButton = getEl('[type=submit]', formEl)
-  submitButton.addEventListener('click', onSubmit)
 }
+
 init()
 
+function addSubmitEventListenerToForm(formContainerSelector, target, index) {
+  const formEl = getEl(formContainerSelector + ' form', target)
+  formEl.addEventListener('submit', (event) =>
+    onSubmitTransaction(event, formEl, index)
+  )
+}
 //submit form handler
-function onSubmit(event) {
+function onSubmitTransaction(event, formEl, index) {
   event.preventDefault()
-  const formEl = getEl('[data-js~=js-add-transaction] form')
-  formSubmitDataHandler(formEl)
+  formSubmitDataHandler(formEl, index)
   render()
 }
 
-function formSubmitDataHandler(formEl, inputSelector = 'input') {
+function formSubmitDataHandler(formEl, index, inputSelector = 'input') {
   const inputs = getAll(inputSelector, formEl)
   const newValue = inputs.reduce(
     (acc, input) => ({ ...acc, ...extractFormatedValue(input) }),
     {}
   )
-  data = [...data, newValue]
+  index = index > -1 ? index : transactions.length
+  transactions = [
+    ...transactions.slice(0, index),
+    newValue,
+    ...transactions.slice(index + 1),
+  ]
 }
 
 function extractFormatedValue(input) {
@@ -73,7 +77,7 @@ function renderSummary(sel) {
 }
 
 function getSummaryValues() {
-  return data.reduce(
+  return transactions.reduce(
     (acc, { amount }) => {
       switch (true) {
         case amount > 0: {
@@ -91,21 +95,23 @@ function getSummaryValues() {
 }
 
 /// toggle
-function addToggleLogicToSections(triggerSelector) {
-  const parents = getAll('[data-js~=js-toggle]')
+function addToggleLogicToSections(target) {
+  const triggerSelector = '[data-js~=js-trigger]'
+
+  const parents = getAll('[data-js~=js-toggle]', target)
+
   parents.forEach((parent) => {
     const trigger = getEl(triggerSelector, parent)
-    trigger.addEventListener('click', () => {
-      toggleElementSiblings(triggerSelector, parent)
-    })
+    trigger &&
+      trigger.addEventListener('click', () => {
+        toggleElementSiblings(triggerSelector, parent)
+      })
   })
 }
 
 function toggleElementSiblings(sel, parent) {
   const siblings = getAll(sel + '~*', parent)
-  siblings.forEach((el, index) => {
-    toggleElement(el)
-  })
+  siblings.forEach(toggleElement)
 }
 
 function toggleElement(el) {
@@ -117,35 +123,76 @@ function toggleElement(el) {
 function renderTransactions(sel) {
   const parent = getEl(sel)
   parent.innerHTML = ''
-  data.forEach(({ label, amount }, index) =>
+  transactions.forEach(({ label, amount }, index) =>
     renderTransaction(parent, label, amount, index)
   )
 }
 
 function renderTransaction(target = document, label = '', amount = 0, index) {
   const historyElementHtml = `
-<button type="button" data-js="js-delete"></button>
-              <span>${label}</span>
-              <span class="history_records__summary">${amount}</span>
-  `
-  const historyEl = document.createElement('li')
-  historyEl.className = `history__records ${
+  <div data-js="js-toggle">
+  <div class="history__records ${
     amount > 0
       ? 'history__records__income'
       : amount
       ? 'history__records__expense'
       : ''
-  }`
-
+  }" data-js="js-trigger">
+<button type="button" data-js="js-delete"></button>
+              <span>${label}</span>
+              <span class="history_records__summary">${amount}</span>
+              </div>
+<div class="hidden" data-js="js-${index}-transaction"> 
+  <form>
+          <label class="edit-form__field">
+            <div>Text</div>
+            <input
+              type="text"
+              placeholder="Enter a this entry label..."
+              name="label"
+              value="${label}"
+            />
+          </label>
+          <label class="edit-form__field">
+            <div>
+              Amount
+              <p>(negative - expense, positive - income)</p>
+            </div>
+            <input
+              type="number"
+              name="amount"
+              value="${amount}"
+              placeholder="Enter a number..."
+            />
+          </label>
+          <button type="submit" class="edit-form__submit-button">
+            update transaction
+          </button>
+        </form>
+ </div>
+ </div>
+  `
+  const historyEl = document.createElement('li')
   historyEl.innerHTML = historyElementHtml
+  addToggleLogicToSections(historyEl)
   const deleteButtonElement = getEl('[data-js~=js-delete]', historyEl)
   deleteButtonElement.addEventListener('click', () => removeTransaction(index))
+  addSubmitEventListenerToForm(
+    `[data-js~=js-${index}-transaction]`,
+    historyEl,
+    index
+  )
   target.insertAdjacentElement('beforeend', historyEl)
 }
+
 function removeTransaction(index) {
-  data = [...data.slice(0, index), ...data.slice(index + 1)]
+  transactions = [
+    ...transactions.slice(0, index),
+    ...transactions.slice(index + 1),
+  ]
   render()
 }
+
 function getEl(sel, target = document) {
   return target.querySelector(sel)
 }
