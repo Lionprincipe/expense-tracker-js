@@ -1,13 +1,20 @@
 let transactions = load() || []
+const NODE_ELEMENT_SELECTORS = {
+  historyList: '[data-js~=js-history] ul',
+  summary: '[data-js~=js-summary]',
+  newTransaction: '[data-js~=js-add-transaction]',
+  triggerSelector: '[data-js~=js-trigger]',
+  togglerSelector: '[data-js~=js-toggle]',
+}
 
 const render = () => {
-  renderTransactions('[data-js~=js-history] ul')
-  renderSummary('[data-js~=js-summary]')
+  renderTransactions(NODE_ELEMENT_SELECTORS.historyList)
+  renderSummary(NODE_ELEMENT_SELECTORS.summary)
 }
 
 const init = () => {
   addToggleLogicToSections()
-  addSubmitEventListenerToForm('[data-js~=js-add-transaction]')
+  addSubmitEventListenerToForm(NODE_ELEMENT_SELECTORS.newTransaction)
   render()
 }
 
@@ -56,7 +63,6 @@ function extractFormatedValue(input) {
 // render summary
 function renderSummary(sel) {
   const { expense, income } = getSummaryValues()
-
   const summaryElement = getEl(sel)
   const summaryHtml = `
   <h2 class="summary__heading" >
@@ -97,9 +103,9 @@ function getSummaryValues() {
 
 /// toggle
 function addToggleLogicToSections(target) {
-  const triggerSelector = '[data-js~=js-trigger]'
+  const { triggerSelector } = NODE_ELEMENT_SELECTORS
 
-  const parents = getAll('[data-js~=js-toggle]', target)
+  const parents = getAll(NODE_ELEMENT_SELECTORS.togglerSelector, target)
 
   parents.forEach((parent) => {
     const trigger = getEl(triggerSelector, parent)
