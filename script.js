@@ -1,4 +1,4 @@
-let transactions = []
+let transactions = load() || []
 
 const render = () => {
   renderTransactions('[data-js~=js-history] ul')
@@ -38,6 +38,7 @@ function formSubmitDataHandler(formEl, index, inputSelector = 'input') {
     newValue,
     ...transactions.slice(index + 1),
   ]
+  save()
 }
 
 function extractFormatedValue(input) {
@@ -190,7 +191,16 @@ function removeTransaction(index) {
     ...transactions.slice(0, index),
     ...transactions.slice(index + 1),
   ]
+  save()
   render()
+}
+
+function save() {
+  localStorage.setItem('transactions', JSON.stringify(transactions))
+}
+
+function load() {
+  return JSON.parse(localStorage.getItem('transactions'))
 }
 
 function getEl(sel, target = document) {
