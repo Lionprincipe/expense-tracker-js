@@ -9,10 +9,10 @@ let data = [
 const render = () => {
   renderTransactions('[data-js~=js-history] ul')
   renderSummary('[data-js~=js-summary]')
-  addToggleLogicToSections('[data-js~=js-toggle-trigger]')
 }
 const init = () => {
   render()
+  addToggleLogicToSections('[data-js~=js-toggle-trigger]')
   const formEl = getEl('[data-js~=js-add-transaction] form')
   const submitButton = getEl('[type=submit]', formEl)
   submitButton.addEventListener('click', onSubmit)
@@ -95,19 +95,21 @@ function addToggleLogicToSections(triggerSelector) {
   const parents = getAll('[data-js~=js-toggle]')
   parents.forEach((parent) => {
     const trigger = getEl(triggerSelector, parent)
-    trigger.addEventListener('click', () =>
+    trigger.addEventListener('click', () => {
       toggleElementSiblings(triggerSelector, parent)
-    )
+    })
   })
 }
 
 function toggleElementSiblings(sel, parent) {
   const siblings = getAll(sel + '~*', parent)
-  siblings.forEach(toggleElement)
+  siblings.forEach((el, index) => {
+    toggleElement(el)
+  })
 }
 
 function toggleElement(el) {
-  el && el.classList.toggle('hidden')
+  el.classList.toggle('hidden')
 }
 
 //renderTransactionsHistory
@@ -137,14 +139,12 @@ function renderTransaction(target = document, label = '', amount = 0, index) {
 
   historyEl.innerHTML = historyElementHtml
   const deleteButtonElement = getEl('[data-js~=js-delete]', historyEl)
-  console.log(deleteButtonElement)
   deleteButtonElement.addEventListener('click', () => removeTransaction(index))
   target.insertAdjacentElement('beforeend', historyEl)
 }
 function removeTransaction(index) {
   data = [...data.slice(0, index), ...data.slice(index + 1)]
   render()
-  console.log(data)
 }
 function getEl(sel, target = document) {
   return target.querySelector(sel)
